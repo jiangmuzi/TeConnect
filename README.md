@@ -1,6 +1,8 @@
 # TeConnect
 Typecho互联插件
 
+把插件目录下callback.php文件拷贝到当前使用的模板目录下
+
 暂只支持QQ、微博登录
 
 启用插件后进入插件设置
