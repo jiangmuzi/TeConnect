@@ -18,3 +18,5 @@ Typecho互联插件
     <?php TeConnect_Plugin::show($format="<a href="{url}"><i class="icon-{type}"></i> {title}</a>");?>
 
 把上述代码放在需要显示的地方即可
+
+演示地址：http://www.ggzoo.com/login
