@@ -113,7 +113,7 @@ class TeConnect_Widget extends Widget_Abstract_Users{
 		//已经登录，重新绑定
 		if ($this->user->hasLogin()) {
             /** 绑定用户 */
-            $this->bindUser($this->auth['openid'],$this->auth['type']);
+            $this->bindUser($this->user->uid,$this->auth['openid'],$this->auth['type']);
             //提示绑定成功，并跳转
             // add 跳转提示
             $this->widget('Widget_Notice')->set(array('成功绑定账号!'));
@@ -128,15 +128,11 @@ class TeConnect_Widget extends Widget_Abstract_Users{
 			$this->widget('Widget_Notice')->set(array('已成功登陆!'));
 			$this->response->redirect($this->options->index);
 		}
-		//未绑定，显示界面
-
-		if(empty($this->auth['nickname'])){
-		    $this->auth['nickname'] = '关注者'.substr(str_shuffle($this->auth['openid']),0,4);
-		}
+		
 		if(!isset($_SESSION['__typecho_auth']))
 			$_SESSION['__typecho_auth'] = $this->auth;
 		
-		
+		//未绑定，显示界面
 		$this->render('callback.php');
 	}
     //绑定已有用户
