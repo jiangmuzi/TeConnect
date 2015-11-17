@@ -17,7 +17,7 @@ Typecho互联插件
 
 登录按钮
 
-    <?php TeConnect_Plugin::show($format="<a href="{url}"><i class="icon-{type}"></i> {title}</a>");?>
+    <?php TeConnect_Plugin::show($format="<a href='{url}'>{title}</a>");?>
 
 把上述代码放在需要显示的地方即可
 
