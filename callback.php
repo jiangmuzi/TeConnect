@@ -59,7 +59,7 @@
 			<div class="tabs-panel" id="tab1">
 				<p>
 				<label for="mail" class="required">昵称</label>
-				<input type="text" name="screenName"  />
+				<input type="text" name="screenName" value="<?php if(isset($this->auth['nickname'])) { echo $this->auth['nickname'];}?>"  />
 				</p>
 				<p>
 				<label for="mail" class="required">邮箱</label>

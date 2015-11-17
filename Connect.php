@@ -57,4 +57,17 @@ class Connect{
         }
         return $openid;
     }
+    
+    static public function getNickName($type,$openid){
+        $nickname = '';
+        if($type=='qq'){
+            $rs = self::getConnect($type)->get_user_info($openid);
+            $nickname = $rs['nickname'];
+        }elseif($type=='weibo'){
+            $rs = self::getConnect($type)->show_user_by_id($openid);
+            $nickname = $rs['screen_name'];
+        }
+        
+        return $nickname;
+    }
 }

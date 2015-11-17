@@ -53,7 +53,7 @@ class TeConnect_Plugin implements Typecho_Plugin_Interface
     public static function config(Typecho_Widget_Helper_Form $form)
     {
         /** 互联配置 */
-        $connect = new Typecho_Widget_Helper_Form_Element_Textarea('connect', NULL, NULL, _t('互联配置'), _t('在这里博客的介绍，将显示在页面底部'));
+        $connect = new Typecho_Widget_Helper_Form_Element_Textarea('connect', NULL, NULL, _t('互联配置'), _t('一行一个配置，格式为：‘type:appid,appkey,title’，如：‘qq:12345678,asdiladaldns,腾讯QQ’'));
 		$form->addInput($connect);
     }
     
@@ -85,7 +85,7 @@ class TeConnect_Plugin implements Typecho_Plugin_Interface
 					$db->query($script, Typecho_Db::WRITE);
 				}
 			}
-			return '建立友情链接数据表，插件启用成功';
+			return '建立Typecho互联数据表，插件启用成功';
 		} catch (Typecho_Db_Exception $e) {
 			$code = $e->getCode();
 			if(('Mysql' == $type && 1050 == $code) ||
@@ -93,7 +93,7 @@ class TeConnect_Plugin implements Typecho_Plugin_Interface
 				try {
 					$script = 'SELECT `uid` from `' . $prefix . 'connect`';
 					$db->query($script, Typecho_Db::READ);
-					return '检测到友情链接数据表，Typecho互联插件启用成功';					
+					return '检测到Typecho互联数据表，Typecho互联插件启用成功';					
 				} catch (Typecho_Db_Exception $e) {
 					$code = $e->getCode();
 					if(('Mysql' == $type && 1054 == $code) ||

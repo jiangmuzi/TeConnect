@@ -108,6 +108,8 @@ class TeConnect_Widget extends Widget_Abstract_Users{
 			if(empty($this->auth['openid'])){
 				$this->response->redirect($this->options->index);
 			}
+			
+			//$this->auth['nickname'] = Connect::getNickName($this->auth['type'],$this->auth['openid']);
 		}
 
 		//已经登录，重新绑定
