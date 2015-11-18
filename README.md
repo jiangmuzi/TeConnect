@@ -28,4 +28,4 @@ TeConnect暂只支持QQ及微博，并做了扩展性的兼容，所以配置是
     qq:12345678,askdkgfksdqklnndad,腾讯QQ
     weibo:87654321,kahdkashduafodsf,微博
 
-演示地址 [http://www.ggzoo.com/login][2]
+演示地址 http://www.ggzoo.com/login
