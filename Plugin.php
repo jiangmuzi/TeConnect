@@ -55,6 +55,9 @@ class TeConnect_Plugin implements Typecho_Plugin_Interface
         /** 互联配置 */
         $connect = new Typecho_Widget_Helper_Form_Element_Textarea('connect', NULL, NULL, _t('互联配置'), _t('一行一个配置，格式为：‘type:appid,appkey,title’，如：‘qq:12345678,asdiladaldns,腾讯QQ’'));
 		$form->addInput($connect);
+		
+		$custom = new Typecho_Widget_Helper_Form_Element_Radio('custom',array(1=>_t('是'),0=>'否'),1,_t('是否需要完善资料'),_t('用户使用社会化登录后，是否需要完善昵称、邮箱等信息；选择不需要完善资料则直接使用获取到的昵称'));
+		$form->addInput($custom);
     }
     
     /**

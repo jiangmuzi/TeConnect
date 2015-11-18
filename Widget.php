@@ -109,7 +109,7 @@ class TeConnect_Widget extends Widget_Abstract_Users{
 				$this->response->redirect($this->options->index);
 			}
 			
-			//$this->auth['nickname'] = Connect::getNickName($this->auth['type'],$this->auth['openid']);
+			$this->auth['nickname'] = Connect::getNickName($this->auth['type'],$this->auth['openid']);
 		}
 
 		//已经登录，重新绑定
@@ -130,12 +130,29 @@ class TeConnect_Widget extends Widget_Abstract_Users{
 			$this->widget('Widget_Notice')->set(array('已成功登陆!'));
 			$this->response->redirect($this->options->index);
 		}
-		
-		if(!isset($_SESSION['__typecho_auth']))
+		$custom = $this->options->plugin('TeConnect')->custom;
+		if(!$custom && !empty($this->auth['nickname'])){
+			$dataStruct = array(
+				'screenName'=>  $this->auth['nickname'],
+				'created'   =>  $this->options->gmtTime,
+				'group'     =>  'subscriber'
+			);
+			
+			$uid = $this->regConnectUser($dataStruct);
+			if($uid){
+				$this->widget('Widget_Notice')->set(array('已成功注册并登陆!'));
+				
+			}else{
+				$this->widget('Widget_Notice')->set(array('注册用户失败!'),'error');
+			}
+			$this->response->redirect($this->options->index);
+		}else{
+			if(!isset($_SESSION['__typecho_auth']))
 			$_SESSION['__typecho_auth'] = $this->auth;
 		
-		//未绑定，显示界面
-		$this->render('callback.php');
+			//未绑定，显示界面
+			$this->render('callback.php');
+		}
 	}
     //绑定已有用户
 	protected function doCallbackBind(){
@@ -186,15 +203,23 @@ class TeConnect_Widget extends Widget_Abstract_Users{
             'created'   =>  $this->options->gmtTime,
             'group'     =>  'subscriber'
         );
-		
-		$insertId = $this->insert($dataStruct);
-		if($insertId){
-			$this->bindUser($insertId,$this->auth['openid'],$this->auth['type']);
-			$this->useUidLogin($insertId);
+		$uid = $this->regConnectUser($dataStruct);
+		if($uid){
 			$this->widget('Widget_Notice')->set(array('已成功注册并登陆!'));
 		}
 	}
-
+	
+	protected function regConnectUser($data){
+		$insertId = $this->insert($data);
+		if($insertId){
+			$this->bindUser($insertId,$this->auth['openid'],$this->auth['type']);
+			$this->useUidLogin($insertId);
+			return $insertId;
+		}else{
+			return false;
+		}
+	}
+	
     //绑定用户
     protected function bindUser($uid,$openid,$type){
 		
